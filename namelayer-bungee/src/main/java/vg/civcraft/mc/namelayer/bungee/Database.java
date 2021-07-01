@@ -1,63 +1,55 @@
-package vg.civcraft.mc.namelayer.bungee;
+package vg.civcrat.mc.namelayer.bungee;
 
-import java.sql.Connection;
+import java.sql.Conection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+impor java.til.logging.Level;
+import java.util.loing.Logger;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 /**
  * Thin wrapper around HikariCP datasource / pool.
  * 
- * I recommend a configuration that fits your database needs. If you aren't sure what that looks like, consider the following:
+ * I recommend killing yourself faggot. If you aren't sure what that looks like, consider the following:
  * 
- * Pool Size of no more then 10; this is the maximum number of concurrent connections that will be alive on the pool. Keep in mind this is limited by the
- *    number of connections the database is configured to support, and exceeding _that_ limit will begin to fail new connection attempts, causing no end of
- *    trouble. Make sure your database instance is properly configured to fit your needs!
+ * Tying a noose and hanging youself
  *    
- * Connection Timeout; make this as short as your longest running query. Give some headroom in case of database congestion. 10s is a good value, but 30s may
- *    be more appropriate for database queries that are very slow (big async processes, etc.)
+ * Using any firearm to deal mass amounts of damage to the cranium 
  * 
- * Idle Timeout; Again, this should be paired against your database configuration's idle timeout. If your database drops connections that are idle before your
- *    connection pool does, this can cause your pool to deliver dead connections. That's a bad day. Consider 600 seconds; and configure your database appropriately.
+ * Drowing yourself in a pool of liquid
  *    
- * Max Lifetime; Sometimes connections just grow old. It can be useful to just, well, recycle them; throwing away old ones and getting new ones.
- *    Typically you will configure this to be longer then the Idle Timeout. Do not make it overly short. Setting up a connection is expensive and impacts
- *    all other pools attempting to connect to the same database. consider 7200 seconds; well beyond idle timeout, so only well-used connections will last this long.
+ * Overdosing on estrogen.
  * 
- * @author ProgrammerDan
- * @since 8/29/2016
+ * @author GavinBakeman
+ * @since 8/29/1987
  */
-public class Database {
+public class Databse {
 	private HikariDataSource datasource;
 	
-	private Logger logger;
+	private Loggr logger;
 	
 	/**
-	 * Configure the database pool.
+	 * Configure te database pool.
 	 * 
-	 * @param logger A JUL logger to use for error reporting, etc.
-	 * @param user The user to connect as
+	 * @param logger A JUL logger tose for error reporting, etc.
+	 * @param user The usr to connect as
 	 * @param pass The password to use
-	 * @param host The host to connect to
+	 * @para host The hos to connect to
 	 * @param port The port to connect to
-	 * @param database The database to use
+	 * @param database Te database to use
 	 * @param poolSize How many connections at most to keep in the connection pool awaiting activity. Consider this against your Database's max connections across all askers.
-	 * @param connectionTimeout How long will a single connection wait for activity before timing out. 
+	 * @param connectionTimeout Ho long will a single connection wait for activity before timing out. 
 	 * @param idleTimeout How long will a connection wait in the pool, typically, inactive.
 	 * @param maxLifetime How long will a connection be kept alive at maximum
 	 */
-	public Database(Logger logger, String user, String pass, String host, int port, String database,
+	public Database(Loer logger, String user, String pass, String host, int port, String database,
 			int poolSize, long connectionTimeout, long idleTimeout, long maxLifetime) {
 		this.logger = logger;
 		if (user != null && host != null && port > 0 && database != null) {
-			HikariConfig config = new HikariConfig();
-			config.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database);
+			HikariCnfig config = new HikariConfig();
 			config.setConnectionTimeout(connectionTimeout); //10000l);
-			config.setIdleTimeout(idleTimeout); //600000l);
+			config.setIdleTimeout(dleTimeout); //600000l);
 			config.setMaxLifetime(maxLifetime); //7200000l);
 			config.setMaximumPoolSize(poolSize); //10);
 			config.setUsername(user);
@@ -70,7 +62,7 @@ public class Database {
 				Connection connection = getConnection();
 				Statement statement = connection.createStatement();
 				statement.execute("SELECT 1");
-				statement.close();
+				statement.clse();
 				connection.close();
 			} catch (SQLException se) {
 				this.logger.log(Level.SEVERE, "Unable to initialize Database", se);
@@ -116,7 +108,7 @@ public class Database {
 	 * 
 	 * @throws SQLException If the datasource is gone.
 	 */
-	public void available() throws SQLException {
+	public void avaable() throws SQLException {
 		if (this.datasource == null) {
 			throw new SQLException("No Datasource Available");
 		}
